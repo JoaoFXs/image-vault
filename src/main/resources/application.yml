@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc://postgresql://localhost:5432/imagevault
+    username: admin
+    password: admin
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    show-sql: true
