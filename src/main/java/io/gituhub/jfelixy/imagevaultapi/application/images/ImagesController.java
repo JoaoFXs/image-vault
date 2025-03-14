@@ -22,7 +22,7 @@ public class ImagesController {
     //Opcional Parameter @RequestParam(value = "name" ,required= "false")
 
     @PostMapping
-    public ResponseEntity save(@RequestParam("file") MultipartFile file,
+    public ResponseEntity save(@RequestParam("file") MultipartFi le file,
                                @RequestParam("name") String name,
                                @RequestParam("tags") List<String> tags) {
         log.info("Image Received: name: {}, size: {}", file.getOriginalFilename(), file.getSize());
