@@ -65,7 +65,7 @@ public class ImagesController {
             @RequestParam(value = "extension", required = false, defaultValue = "") String extension,
             @RequestParam(value = "query", required = false) String query){
             //Returns a list of images found through the extension or query
-           var result = service.search(ImageExtension.valueOf(extension), query);
+           var result = service.search(ImageExtension.ofName(extension), query);
             //Iterates through each image, retrieves their URLs, builds the DTO, and finally organizes them into a list of images for return
            var images = result.stream().map(image -> {
                var url = buildImageURL(image);
@@ -78,6 +78,6 @@ public class ImagesController {
     //localhost:8080/v1/images/{imageId}
     private URI buildImageURL(Image image){
         String imagePath = "/" + image.getId();
-        return ServletUriComponentsBuilder.fromCurrentRequest().path(imagePath).build().toUri();
+        return ServletUriComponentsBuilder.fromCurrentRequestUri().path(imagePath).build().toUri();
     }
 }
