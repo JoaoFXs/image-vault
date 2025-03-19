@@ -39,8 +39,7 @@ public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecif
             // AND ( NAME LIKE 'QUERY' OR TAGS LIKE 'QUERY')
             // RIVER => %RI% -> Percentage to search for what comes before and after the string
             //SpecificationanyOf: Or
-            Specification<Image> nameOrTagsLike = Specification.anyOf(nameLike(query), tagsLike(query));
-            spec = spec.and(nameOrTagsLike);
+            spec = spec.and(Specification.anyOf(nameLike(query), tagsLike(query)));
         }
 
 
