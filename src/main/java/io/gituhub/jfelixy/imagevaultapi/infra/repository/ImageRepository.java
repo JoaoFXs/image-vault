@@ -1,9 +1,8 @@
 package io.gituhub.jfelixy.imagevaultapi.infra.repository;
 
-import io.gituhub.jfelixy.imagevaultapi.application.images.ImageDTO;
 import io.gituhub.jfelixy.imagevaultapi.domain.entity.Image;
 import io.gituhub.jfelixy.imagevaultapi.domain.enums.ImageExtension;
-import io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.ImageSpecs;
+import io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.GenericSpecs;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
+import static io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.GenericSpecs.*;
 import static io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.ImageSpecs.*;
 
 public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecificationExecutor<Image> {
@@ -25,10 +25,8 @@ public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecif
 
     default List<Image> findByExtensionAndNameOrTagsLike(ImageExtension extension, String query){
         // Using to Query in table Image
-        //1 = 1
-        Specification<Image> conjunction = (root, q, criteriaBuilder) -> criteriaBuilder.conjunction() ;
-        // SELECT * FROM IMAGE WHERE 1 = 1/ To all find strategy
-        Specification<Image> spec = Specification.where(conjunction);
+
+        Specification<Image> spec = Specification.where(conjunction());
 
         if(extension != null){
             //AND EXTENSION = 'PN'
