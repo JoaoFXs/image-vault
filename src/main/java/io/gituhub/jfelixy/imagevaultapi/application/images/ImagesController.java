@@ -59,6 +59,21 @@ public class ImagesController {
         return new ResponseEntity<>(image.getFile(), headers, HttpStatus.OK);
     }
 
+    //v1/images?extension=PNG&query=nature
+    @GetMapping
+    public ResponseEntity<List<ImageDTO>> search(
+            @RequestParam(value = "extension", required = false) String extension,
+            @RequestParam(value = "query", required = false) String query){
+            //Returns a list of images found through the extension or query
+           var result = service.search(ImageExtension.valueOf(extension), query);
+            //Iterates through each image, retrieves their URLs, builds the DTO, and finally organizes them into a list of images for return
+           var images = result.stream().map(image -> {
+               var url = buildImageURL(image);
+               return mapper.imageToDTO(image, url.toString());
+           }).collect(java.util.stream.Collectors.toList());
+
+          return ResponseEntity.ok(images);
+    }
 
     //localhost:8080/v1/images/{imageId}
     private URI buildImageURL(Image image){
