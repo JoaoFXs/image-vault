@@ -62,7 +62,7 @@ public class ImagesController {
     //v1/images?extension=PNG&query=nature
     @GetMapping
     public ResponseEntity<List<ImageDTO>> search(
-            @RequestParam(value = "extension", required = false) String extension,
+            @RequestParam(value = "extension", required = false, defaultValue = "") String extension,
             @RequestParam(value = "query", required = false) String query){
             //Returns a list of images found through the extension or query
            var result = service.search(ImageExtension.valueOf(extension), query);
