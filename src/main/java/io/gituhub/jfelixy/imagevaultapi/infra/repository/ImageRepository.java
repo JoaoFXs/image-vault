@@ -3,12 +3,15 @@ package io.gituhub.jfelixy.imagevaultapi.infra.repository;
 import io.gituhub.jfelixy.imagevaultapi.application.images.ImageDTO;
 import io.gituhub.jfelixy.imagevaultapi.domain.entity.Image;
 import io.gituhub.jfelixy.imagevaultapi.domain.enums.ImageExtension;
+import io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.ImageSpecs;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+
+import static io.gituhub.jfelixy.imagevaultapi.infra.repository.specs.ImageSpecs.*;
 
 public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecificationExecutor<Image> {
 
@@ -29,17 +32,14 @@ public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecif
 
         if(extension != null){
             //AND EXTENSION = 'PN'
-            Specification<Image> extensionEqual =  (root, q, cb) -> cb.equal(root.get("extension"), extension);
-            spec = spec.and(extensionEqual);
+            spec = spec.and(extensionEqual(extension));
         }
 
         if(StringUtils.hasText(query)){
             // AND ( NAME LIKE 'QUERY' OR TAGS LIKE 'QUERY')
             // RIVER => %RI% -> Percentage to search for what comes before and after the string
-            Specification<Image> nameLike = (root, q, cb) -> cb.like(cb.upper(root.get("name")), "%" + query.toUpperCase() + "%");
-            Specification<Image> tagsLike = (root, q, cb) -> cb.like(cb.upper(root.get("tags")), "%" + query.toUpperCase() + "%");
             //SpecificationanyOf: Or
-            Specification<Image> nameOrTagsLike = Specification.anyOf(nameLike, tagsLike);
+            Specification<Image> nameOrTagsLike = Specification.anyOf(nameLike(query), tagsLike(query));
             spec = spec.and(nameOrTagsLike);
         }
 
