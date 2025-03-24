@@ -1,9 +1,8 @@
-import Image from 'next/image'
+import { FirstComponent} from '../components/FirstComponent'
+
 
 export default function Home() {
   return (
-    <main>
-      Hello World!
-    </main>
+    <FirstComponent/>
   )
 }
