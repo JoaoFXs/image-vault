@@ -1,11 +1,16 @@
 'use client'
-export function FirstComponent(){
+interface FirstComponentProps{
+    message?: string;
+    messageBotton?: string;
+}
+
+export const FirstComponent: React.FC<FirstComponentProps> = (props: FirstComponentProps) => {
     function handleClick(){
-        console.log("Click on botton")
+        console.log(props.messageBotton)
     }
     return(
         <div>
-            My first component
+           { props.message }
             <button onClick={handleClick}>Clique aqui</button>
         </div>
     )
