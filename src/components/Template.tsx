@@ -1,4 +1,3 @@
-
 interface TemplateProps{
     children?: React.ReactNode
 }
