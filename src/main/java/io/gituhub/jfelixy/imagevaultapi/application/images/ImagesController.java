@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/images")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ImagesController {
 
     private static final Logger log = LoggerFactory.getLogger(ImagesController.class);
