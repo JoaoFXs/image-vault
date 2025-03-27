@@ -14,7 +14,6 @@ export default function GalleryPage(){
         const resultImages = await useService.search();
         setImages(resultImages);
        
-        // console.table(images);
     }
     
     function renderImageCard(image: Image){
