@@ -2,7 +2,7 @@
 
 interface ImageCardProps{
     name?: string;
-    size?: string;
+    size?: number;
     dataUpload?: string;
     src?: string;
 }
