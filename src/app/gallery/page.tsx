@@ -22,7 +22,7 @@ export default function GalleryPage(){
     
     function renderImageCard(image: Image){
         return (
-            <ImageCard key={image.url} name={image.name} src={image.url} size={image.size} dataUpload={image.uploadDate}/>
+            <ImageCard key={image.url} name={image.name} src={image.url} size={image.size} dataUpload={image.uploadDate} extension={image.extension}/>
         );
     }
 

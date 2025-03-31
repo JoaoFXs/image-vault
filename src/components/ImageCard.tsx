@@ -5,9 +5,10 @@ interface ImageCardProps{
     size?: number;
     dataUpload?: string;
     src?: string;
+    extension?:string
 }
 
-export const ImageCard: React.FC<ImageCardProps> = ({name, size, dataUpload, src}: ImageCardProps) => {
+export const ImageCard: React.FC<ImageCardProps> = ({name, size, dataUpload, src, extension}: ImageCardProps) => {
     
     function download(){
         window.open(src, '_blank');
@@ -30,6 +31,7 @@ export const ImageCard: React.FC<ImageCardProps> = ({name, size, dataUpload, src
             <img  onClick={download}  className="h-56 w-full object-cover rounded-t-md" alt="" src={src}/>
             <div className="card-body p-4">
                 <h5 className="text-xl font-semibold mb-2 text-gray-600">{name}</h5>
+                <p className="text-gray-600">{extension}</p>
                 <p className="text-gray-600">{formatBytes(size,2)}</p>
                 <p className="text-gray-600">{dataUpload}</p>
             </div>
