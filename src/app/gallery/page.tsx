@@ -1,7 +1,7 @@
 'use client'
 
-import {Template, ImageCard} from '@/components'
-import {Button} from '@/components/button'
+import {Template, ImageCard, Button, InputText} from '@/components'
+
 import { useState } from 'react'
 import { useImageService } from '@/resources/image/image.service'
 import { Image } from '@/resources/image/image.resource';
@@ -38,9 +38,8 @@ export default function GalleryPage(){
             <section className='flex flex-col items-center justify-center my-5'>
                 
                 <div className="flex space-x-4">
-                    <input type='text'
-                    onChange={event => setQuery(event.target.value)}
-                    className='border px-5 py-2 rounded-lg text-gray-700'/>
+                    <InputText onChange={event => setQuery(event.target.value)}/>
+                   
                     <select onChange={event=> setExtension(event.target.value)} className="border px-4 py-2 rounded-lg text-gray-900">
                         <option value="">All formats</option>
                         <option value="PNG">PNG</option>
