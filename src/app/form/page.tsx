@@ -1,5 +1,9 @@
+import { Template } from '@/components'
+
 export default function FormPage(){
     return(
-        <h1>form</h1>
+        <Template>
+         <h1 className="bg-gray-900">form</h1>
+        </Template>
     )
 }

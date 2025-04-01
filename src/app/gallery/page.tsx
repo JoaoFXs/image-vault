@@ -4,6 +4,8 @@ import {Template, ImageCard} from '@/components'
 import { useState } from 'react'
 import { useImageService } from '@/resources/image/image.service'
 import { Image } from '@/resources/image/image.resource';
+import Link from 'next/link';
+
 
 export default function GalleryPage(){
 
@@ -44,9 +46,13 @@ export default function GalleryPage(){
                         <option value="JPEG">JPEG</option>
                         <option value="GIF">GIF</option>
                     </select>
+
                     <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-400" onClick={searchImages}>Search</button>
-                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-300">Add New</button>
-                </div>
+                    <Link href="/form">
+                        <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-300">Add New</button>
+                    </Link>
+
+                    </div>
 
             </section>
 
