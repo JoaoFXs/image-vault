@@ -1,21 +1,44 @@
+'use client'
 import { Template, InputText, Button} from '@/components'
 import Link from 'next/link'
+import { useFormik } from 'formik'
+
+//Insert Values form
+interface FormProps {
+    name: string;
+    tags: string;
+    file: any;
+}
+
+//Values default start
+const formScheme: FormProps = {name: '', tags: '', file: ''}
 
 export default function FormPage(){
+
+    const formik = useFormik<FormProps>({
+        initialValues: formScheme,
+        onSubmit: (dados: FormProps) => {
+            console.log(dados)
+        }
+    });
+
     return(
         <Template>
 
          <section className='flex flex-col items-center justify-center my-5'>
             <h5 className='mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-500'>New Image</h5>
-            <form>
+            
+            <form onSubmit={formik.handleSubmit}>
                 <div className='grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Name: *</label>
-                    <InputText placeholder="type the image's name"/>
+                    <InputText id="name" onChange={formik.handleChange} 
+                    placeholder="type the image's name"/>
                 </div>
 
                 <div className='mt-5 grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Tags: *</label>
-                    <InputText placeholder="type the tag's comma separated"/>
+                    <InputText id="tags" onChange={formik.handleChange} 
+                    placeholder="type the tag's comma separated"/>
                 </div>
 
                 <div className='mt-5 grid grid-cols-1'> 
