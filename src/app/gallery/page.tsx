@@ -46,10 +46,10 @@ export default function GalleryPage(){
                         <option value="JPEG">JPEG</option>
                         <option value="GIF">GIF</option>
                     </select>
-                    <Button label='Search' onClick={searchImages} color='blue'/>
+                    <Button label='Search' onClick={searchImages} color='bg-blue-500 hover:bg-color-300'/>
                     
                     <Link href="/form">
-                        <Button label='Add New' color='yellow'/>
+                        <Button label='Add New' color='bg-yellow-500 hover:bg-yellow-300'/>
                     </Link>
 
                     </div>
