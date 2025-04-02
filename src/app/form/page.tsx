@@ -16,6 +16,7 @@ const formScheme: FormProps = {name: '', tags: '', file: ''}
 
 export default function FormPage(){
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [imagePreview, setImagePreview] = useState<string>();
     const service = useImageService();
 
@@ -25,6 +26,7 @@ export default function FormPage(){
     });
 
     async function handleSubmit(dados: FormProps){
+        setLoading(true);
         const formData = new FormData();
         formData.append("file", dados.file)
         formData.append("name", dados.name)
@@ -32,6 +34,8 @@ export default function FormPage(){
         await service.save(formData);
         formik.resetForm();
         setImagePreview("");
+
+        setLoading(false);
     }
     function onFileUpload(event: React.ChangeEvent<HTMLInputElement>){
         if(event.target.files){
@@ -43,7 +47,7 @@ export default function FormPage(){
     }
 
     return(
-        <Template>
+        <Template loading={loading}>
 
          <section className='flex flex-col items-center justify-center my-5'>
             <h5 className='mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-500'>New Image</h5>
@@ -51,13 +55,13 @@ export default function FormPage(){
             <form onSubmit={formik.handleSubmit}>
                 <div className='grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Name: *</label>
-                    <InputText id="name" onChange={formik.handleChange} 
+                    <InputText value={formik.values.name} id="name" onChange={formik.handleChange} 
                     placeholder="type the image's name"/>
                 </div>
 
                 <div className='mt-5 grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Tags: *</label>
-                    <InputText id="tags" onChange={formik.handleChange} 
+                    <InputText value={formik.values.tags} id="tags" onChange={formik.handleChange} 
                     placeholder="type the tag's comma separated"/>
                 </div>
 
