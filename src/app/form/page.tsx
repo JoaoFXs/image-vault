@@ -1,18 +1,10 @@
 'use client'
 import { Template, InputText, Button, RenderIf, useNotification} from '@/components'
 import { useImageService } from '@/resources/image/image.service'
-import Link from 'next/link'
 import { useFormik } from 'formik'
 import { useState } from 'react'
-//Insert Values form
-interface FormProps {
-    name: string;
-    tags: string;
-    file: any;
-}
-
-//Values default start
-const formScheme: FormProps = {name: '', tags: '', file: ''}
+import Link from 'next/link'
+import { FormProps, formScheme, formValidationScheme } from './formScheme'
 
 export default function FormPage(){
     const notification = useNotification();
@@ -22,7 +14,8 @@ export default function FormPage(){
 
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
-        onSubmit: handleSubmit
+        onSubmit: handleSubmit,
+        validationSchema: formValidationScheme
     });
 
     async function handleSubmit(dados: FormProps){
@@ -58,16 +51,20 @@ export default function FormPage(){
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Name: *</label>
                     <InputText value={formik.values.name} id="name" onChange={formik.handleChange} 
                     placeholder="type the image's name"/>
+                     <span className='text-red-500'>{formik.errors.name}</span>
                 </div>
 
                 <div className='mt-5 grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Tags: *</label>
                     <InputText value={formik.values.tags} id="tags" onChange={formik.handleChange} 
                     placeholder="type the tag's comma separated"/>
+                      <span className='text-red-500'>{formik.errors.tags}</span>
+                      
                 </div>
 
                 <div className='mt-5 grid grid-cols-1'> 
                     <label className='block text-sm font-medium leading-6 text-gray-700'>Image: *</label>
+                    <span className='text-red-500'>{formik.errors.file}</span>
                     <div className='mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10'> 
                         
                         <div className='text-center'>
