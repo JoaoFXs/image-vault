@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+
 interface TemplateProps{
     children?: React.ReactNode
     loading?: boolean;
@@ -15,8 +17,16 @@ export const Template: React.FC<TemplateProps> = ({children, loading  = false}: 
                 </RenderIf>
                  {children}
             </div>
-
+   
             <Footer/>
+            <ToastContainer
+                position="top-right"
+                autoClose={8000}
+                hideProgressBar={false}
+                draggable={false}
+                closeOnClick={true}
+                pauseOnHover={true}
+                />
         </>
     )
 }
@@ -53,7 +63,7 @@ const Header: React.FC = () => {
 
 const Footer: React.FC = () => {
     return(
-        <footer className="bg-sky-700 text-thite py-4 mt-8">
+        <footer className="bg-sky-700 text-white py-4 mt-8">
             <div className="container mx-auto text-center">
                 Developed by João Felix
             </div>
