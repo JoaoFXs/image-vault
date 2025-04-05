@@ -1,7 +1,6 @@
 package io.gituhub.jfelixy.imagevaultapi.application.users;
 
 import io.gituhub.jfelixy.imagevaultapi.domain.AccessToken;
-import io.gituhub.jfelixy.imagevaultapi.domain.entity.User;
 import io.gituhub.jfelixy.imagevaultapi.domain.exception.DuplicatedTupleException;
 import io.gituhub.jfelixy.imagevaultapi.domain.service.UserService;
 import io.gituhub.jfelixy.imagevaultapi.infra.repository.UserRepository;

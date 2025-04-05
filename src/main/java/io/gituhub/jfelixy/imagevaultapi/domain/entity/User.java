@@ -1,6 +1,5 @@
 package io.gituhub.jfelixy.imagevaultapi.domain.entity;
 
-import io.gituhub.jfelixy.imagevaultapi.domain.enums.ImageExtension;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,43 +8,29 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "images")
+@Table(name = "auth_user")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Image {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
     @Column
     private String name;
-
     @Column
-    private Long size;
+    private String email;
     @Column
-    @Enumerated(EnumType.STRING)
-    private ImageExtension extension;
-
-    @Column
+    private String password;
     @CreatedDate
-    private LocalDateTime uploadDate;
+    @Column(name="created_at")
+    private LocalDate createdAt;
 
-    @Column
-    private String tags;
 
-    @Column
-    @Lob
-    private byte[] file;
-
-    public String getFileName(){
-        return getName().concat(".").concat(getExtension().name());
-
-    }
 }
