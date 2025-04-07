@@ -1,5 +1,6 @@
 package io.gituhub.jfelixy.imagevaultapi.application.users;
 
+import io.gituhub.jfelixy.imagevaultapi.application.jwt.JwtService;
 import io.gituhub.jfelixy.imagevaultapi.domain.AccessToken;
 import io.gituhub.jfelixy.imagevaultapi.domain.entity.User;
 import io.gituhub.jfelixy.imagevaultapi.domain.exception.DuplicatedTupleException;
@@ -15,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
     public User getByEmail(String email) {
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if(passwordEncoder.matches(password, user.getPassword())){
-            return new AccessToken("xxx");
+            return jwtService.generateToken(user);
         }
         return null;
     }
