@@ -33,7 +33,7 @@ public class JwtService {
                         .claims(claims)//Information used in the token
                         .compact();
 
-        return new AccessToken("");
+        return new AccessToken(token);
     }
     private Date generateExpirationDate(){
         //Capture current hour and include 60 seconds to expiration
