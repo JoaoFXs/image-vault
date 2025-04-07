@@ -31,11 +31,27 @@ public class UserServiceImpl implements UserService {
         if (possibleUser != null){
             throw new DuplicatedTupleException("User already exists!");
         }
+
+        encodePassword(user);
         return userRepository.save(user);
     }
 
     @Override
     public AccessToken authenticate(String email, String password) {
+        var user = getByEmail(email);
+        if(user == null){
+            return null;
+        }
+
+        if(passwordEncoder.matches(password, user.getPassword())){
+            return new AccessToken("xxx");
+        }
         return null;
+    }
+
+    private void encodePassword(User user){
+        String rawPassword = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        user.setPassword(encodedPassword);
     }
 }
