@@ -32,4 +32,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(jsonResult);
         }
     }
+
+    @PostMapping("/auth")
+    public ResponseEntity authenticate(@RequestBody user)
 }
