@@ -6,6 +6,7 @@ import io.gituhub.jfelixy.imagevaultapi.domain.exception.DuplicatedTupleExceptio
 import io.gituhub.jfelixy.imagevaultapi.domain.service.UserService;
 import io.gituhub.jfelixy.imagevaultapi.infra.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email);
