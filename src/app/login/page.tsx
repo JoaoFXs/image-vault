@@ -1,5 +1,5 @@
 'use client'
-import { Template, RenderIf } from '@/components'
+import { Template, RenderIf, InputText} from '@/components'
 import { useState } from 'react'
 export default function login(){
     
@@ -21,9 +21,43 @@ export default function login(){
                     <form className='space-y-6'>
                         <RenderIf condition={newUserState}>
                             <div>
-                                <label>Name: </label>
+                                <label className='block text-sm font-medium leading-6 text-gray-900'>Name: </label>
                             </div>
-                        </RenderIf>  
+
+                            <div className='mt-2'>
+                               <InputText style='w-full' 
+                                          id='name'/>
+                            </div>
+                        </RenderIf>
+                            <div>
+                                <label className='block text-sm font-medium leading-6 text-gray-900'>Email: </label>
+                            </div>
+
+                            <div className='mt-2'>
+                               <InputText style='w-full' 
+                                          id='email'/>
+                            </div>
+
+                            <div>
+                                <label className='block text-sm font-medium leading-6 text-gray-900'>Password: </label>
+                            </div>
+
+                            <div className='mt-2'>
+                               <InputText style='w-full'
+                                          type="password" 
+                                          id='password'/>
+                            </div>
+                            <RenderIf condition={newUserState}>
+                            <div>
+                                <label className='block text-sm font-medium leading-6 text-gray-900'>Repeat Password: </label>
+                            </div>
+
+                            <div className='mt-2'>
+                               <InputText style='w-full'
+                                          type="password" 
+                                          id='passwordMatch'/>
+                            </div>
+                            </RenderIf>
                     </form>
                 </div>
 
