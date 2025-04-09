@@ -1,21 +1,37 @@
 'use client'
-import { Template, RenderIf, InputText, Button, FieldError} from '@/components'
+import { Template, RenderIf, InputText, Button, FieldError, useNotification} from '@/components'
 import { useState } from 'react'
 import { LoginForm, validationScheme, formScheme} from './formScheme'
 import { useFormik } from 'formik'
-export default function login(){
+import { useAuth} from '@/resources'
+import { Credentials, AccessToken } from '@/resources/user/user.resource'
+import { useRouter} from 'next/navigation'
+export default function Login(){
     
     const [loading, setLoading] = useState<boolean>(false);
-    const [newUserState, setNewUserState] = useState<boolean>(true);
+    const [newUserState, setNewUserState] = useState<boolean>(false);
+
+    const auth = useAuth();
+    const notification = useNotification();
+    const router = useRouter();
 
     const {values, handleChange, handleSubmit, errors} = useFormik<LoginForm>({
         initialValues: formScheme,
         validationSchema: validationScheme,
-        onSubmit: onsubmit
+        onSubmit: onSubmit
     })
 
-    async function onsubmit(values: LoginForm){
-        console.log(values)
+    async function onSubmit(values: LoginForm) {
+        if(!newUserState){
+            const credentials: Credentials = { email: values.email, password: values.password };
+            try {   
+                    const accessToken: AccessToken = await auth.authenticate(credentials);
+                    router.push('/gallery');
+                
+            } catch (error: any) {
+                notification.notify(error?.message, 'error');
+            }
+        }
     }
 
     return(
@@ -29,7 +45,11 @@ export default function login(){
                 </div>
 
                 <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <form onSubmit={handleSubmit} className='space-y-2'>
+                    <form onSubmit={(event) => { 
+                            event.preventDefault();            
+                            onSubmit(values);
+                        }} className='space-y-2'>
+                        
                         <RenderIf condition={newUserState}>
                             <div>
                                 <label className='block text-sm font-medium leading-6 text-gray-900'>Name: </label>

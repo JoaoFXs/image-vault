@@ -5,6 +5,7 @@ class AuthService{
     static AUTH_PARAM: string = "_auth"; // Variable that will be launched in the browser when you want to recover the session
 
     async authenticate(credentials: Credentials): Promise<AccessToken>{
+        console.log(credentials)
         const response = await fetch(this.baseURL + "/auth", {
             method: 'POST',
             body: JSON.stringify(credentials),
