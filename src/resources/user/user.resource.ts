@@ -12,3 +12,10 @@ export class Credentials{
 export class AccessToken{
     accessToken?: string;
 }
+
+export class UserSessionToken{
+    name?: string;
+    email?: string;
+    accessToken?: string;
+    expiration?: number;
+}
