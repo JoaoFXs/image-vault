@@ -32,6 +32,8 @@ class AuthService{
         console.log("Response Auth.save: ", response);
 
         if(response.status == 409){
+            const error = await response.json();
+            console.log("Error: ", error);
             throw new Error('User alredy exists!');
         }
      
