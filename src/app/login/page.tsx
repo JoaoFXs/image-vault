@@ -1,7 +1,7 @@
 'use client'
 import { Template, RenderIf, InputText, Button, FieldError, useNotification} from '@/components'
 import { useState } from 'react'
-import { LoginForm, validationScheme, formScheme} from './formScheme'
+import { LoginForm, signupValidationScheme, loginValidationScheme, formScheme} from './formScheme'
 import { useFormik } from 'formik'
 import { useAuth} from '@/resources'
 import { Credentials, AccessToken, User } from '@/resources/user/user.resource'
@@ -16,11 +16,7 @@ export default function Login(){
     const notification = useNotification();
     const router = useRouter();
 
-    const {values, handleChange, handleSubmit, errors, resetForm} = useFormik<LoginForm>({
-        initialValues: formScheme,
-        validationSchema: validationScheme,
-        onSubmit: onSubmit
-    })
+  
 
     async function onSubmit(values: LoginForm) {
         if(!newUserState){
@@ -46,8 +42,13 @@ export default function Login(){
                 notification.notify(error?.message, 'error');
             }
             }
-        }
-    
+        }  
+        
+        const { values, handleChange, handleSubmit, errors, resetForm } = useFormik<LoginForm>({
+            initialValues: formScheme,
+            validationSchema: newUserState ? signupValidationScheme : loginValidationScheme,
+            onSubmit: onSubmit
+          });
 
     return(
         <Template loading={loading}>
@@ -60,11 +61,7 @@ export default function Login(){
                 </div>
 
                 <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                    <form onSubmit={(event) => { 
-                            event.preventDefault();            
-                            onSubmit(values);
-                        }} className='space-y-2'>
-                        
+                    <form onSubmit={handleSubmit} className='space-y-2'>    
                         <RenderIf condition={newUserState}>
                             <div>
                                 <label className='block text-sm font-medium leading-6 text-gray-900'>Name: </label>
@@ -104,18 +101,18 @@ export default function Login(){
                                 <FieldError error={errors.password}/>
                             </div>
                             <RenderIf condition={newUserState}>
-                            <div>
-                                <label className='block text-sm font-medium leading-6 text-gray-900'>Repeat Password: </label>
-                            </div>
+                                <div>
+                                    <label className='block text-sm font-medium leading-6 text-gray-900'>Repeat Password: </label>
+                                </div>
 
-                            <div className='mt-2'>
-                               <InputText style='w-full'
-                                          type="password" 
-                                          id='passwordMatch'
-                                          value={values.passwordMatch}
-                                          onChange={handleChange}/>
-                                <FieldError error={errors.passwordMatch}/>
-                            </div>
+                                <div className='mt-2'>
+                                <InputText style='w-full'
+                                            type="password" 
+                                            id='passwordMatch'
+                                            value={values.passwordMatch}
+                                            onChange={handleChange}/>
+                                    <FieldError error={errors.passwordMatch}/>
+                                </div>
                             </RenderIf>
 
                         <div>
