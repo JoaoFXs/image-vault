@@ -15,7 +15,7 @@ class AuthService{
         });
 
         if(response.status == 401){
-            throw new Error("User or password are incorrects!")
+            throw new Error("User or password are incorrects!");
         }
         return await response.json();
     }
@@ -32,9 +32,9 @@ class AuthService{
         console.log("Response Auth.save: ", response);
 
         if(response.status == 409){
-            throw new Error('User alredy exists!';)
+            throw new Error('User alredy exists!');
         }
-        return await response.json();
+     
     }
 }
 

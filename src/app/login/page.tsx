@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { LoginForm, validationScheme, formScheme} from './formScheme'
 import { useFormik } from 'formik'
 import { useAuth} from '@/resources'
-import { Credentials, AccessToken } from '@/resources/user/user.resource'
+import { Credentials, AccessToken, User } from '@/resources/user/user.resource'
 import { useRouter} from 'next/navigation'
+
 export default function Login(){
     
     const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +16,7 @@ export default function Login(){
     const notification = useNotification();
     const router = useRouter();
 
-    const {values, handleChange, handleSubmit, errors} = useFormik<LoginForm>({
+    const {values, handleChange, handleSubmit, errors, resetForm} = useFormik<LoginForm>({
         initialValues: formScheme,
         validationSchema: validationScheme,
         onSubmit: onSubmit
@@ -32,7 +33,21 @@ export default function Login(){
                 notification.notify(error?.message, 'error');
             }
         }
-    }
+        else{
+            const user: User = {email: values.email, password: values.password, name: values.name};
+            
+            try {
+                await auth.save(user);
+                notification.notify('User Created Successfully!', 'success');
+                resetForm();
+                setNewUserState(false);
+            }
+            catch(error: any){
+                notification.notify(error?.message, 'error');
+            }
+            }
+        }
+    
 
     return(
         <Template loading={loading}>
