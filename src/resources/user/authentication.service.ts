@@ -75,6 +75,28 @@ class AuthService {
     setUserSession(userSessionToken: UserSessionToken) {
         localStorage.setItem(AuthService.AUTH_PARAM, JSON.stringify(userSessionToken));
     }
+
+    getUserSession(): UserSessionToken | null {
+        const authString = localStorage.getItem(AuthService.AUTH_PARAM);
+        if (!authString) {
+            return null;
+        }
+        const token: UserSessionToken = JSON.parse(authString);
+        return token;
+    }
+
+    isSessionValid(): boolean {
+        const userSession: UserSessionToken | null= this.getUserSession();
+        if(!userSession){
+            return false;
+        }
+        const expiration: number | undefined = userSession.expiration;
+        if(expiration){
+            console.log("Expiration Date: ", expiration);
+        }
+
+        return true;
+    }
 }
 
 // Exporting a custom hook to create a new AuthService instance
