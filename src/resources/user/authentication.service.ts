@@ -75,28 +75,45 @@ class AuthService {
         localStorage.setItem(AuthService.AUTH_PARAM, JSON.stringify(userSessionToken));
     }
 
-    getUserSession(): UserSessionToken | null {
-        const authString = localStorage.getItem(AuthService.AUTH_PARAM);
-        if (!authString) {
-            return null;
-        }
-        const token: UserSessionToken = JSON.parse(authString);
-        return token;
+// Retrieves the user session from the browser's localStorage
+getUserSession(): UserSessionToken | null {
+    // Get the session data stored under the AUTH_PARAM key
+    const authString = localStorage.getItem(AuthService.AUTH_PARAM);
+
+    // If there's no session saved, return null
+    if (!authString) {
+        return null;
     }
 
-    isSessionValid(): boolean {
-        const userSession: UserSessionToken | null= this.getUserSession();
-        if(!userSession){
-            return false;
-        }
-        const expiration: number | undefined = userSession.expiration;
-        if(expiration){
-            const expirationDataInMillis = expiration * 1000;
-            return new Date() < new Date(expirationDataInMillis);
-        }
+    // Parse the session JSON string back into a UserSessionToken object
+    const token: UserSessionToken = JSON.parse(authString);
+    return token;
+}
 
+// Checks if the current session is still valid based on expiration time
+isSessionValid(): boolean {
+    // Retrieve the user session from localStorage
+    const userSession: UserSessionToken | null = this.getUserSession();
+
+    // If there is no session, it's not valid
+    if (!userSession) {
         return false;
     }
+
+    // Get the expiration timestamp from the session
+    const expiration: number | undefined = userSession.expiration;
+
+    if (expiration) {
+        // Convert the expiration time from seconds to milliseconds
+        const expirationDataInMillis = expiration * 1000;
+
+        // Compare expiration with the current time
+        return new Date() < new Date(expirationDataInMillis);
+    }
+
+    // If expiration is not defined, the session is invalid
+    return false;
+}
 }
 
 // Exporting a custom hook to create a new AuthService instance
