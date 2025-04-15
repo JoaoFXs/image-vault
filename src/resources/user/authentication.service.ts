@@ -55,7 +55,6 @@ class AuthService {
         if (token.accessToken) {
             // Decode the token to extract user info
             const decodedToken: any = jwt(token.accessToken);
-            console.log("Decoded Token: ", decodedToken);
 
             // Create a session object using decoded token data
             const userSessionToken: UserSessionToken = {
@@ -92,10 +91,11 @@ class AuthService {
         }
         const expiration: number | undefined = userSession.expiration;
         if(expiration){
-            console.log("Expiration Date: ", expiration);
+            const expirationDataInMillis = expiration * 1000;
+            return new Date() < new Date(expirationDataInMillis);
         }
 
-        return true;
+        return false;
     }
 }
 
