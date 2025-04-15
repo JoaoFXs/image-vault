@@ -1,6 +1,6 @@
 'use client'
 
-import {Template, ImageCard, Button, InputText, useNotification} from '@/components'
+import {Template, ImageCard, Button, InputText, useNotification, AuthenticatedPage} from '@/components'
 
 import { useState } from 'react'
 import { useImageService } from '@/resources'
@@ -38,32 +38,34 @@ export default function GalleryPage(){
         return images.map(renderImageCard)
     }
     return(
-        <Template loading={loading}>
+        <AuthenticatedPage>
+            <Template loading={loading}>
 
-            <section className='flex flex-col items-center justify-center my-5'>
-                
-                <div className="flex space-x-4">
-                    <InputText placeholder="Type Name or Tags"onChange={event => setQuery(event.target.value)}/>
-                   
-                    <select onChange={event=> setExtension(event.target.value)} className="border px-4 py-2 rounded-lg text-gray-900">
-                        <option value="">All formats</option>
-                        <option value="PNG">PNG</option>
-                        <option value="JPEG">JPEG</option>
-                        <option value="GIF">GIF</option>
-                    </select>
-                    <Button label='Search' onClick={searchImages} color='bg-blue-500 hover:bg-color-300'/>
+                <section className='flex flex-col items-center justify-center my-5'>
                     
-                    <Link href="/form">
-                        <Button label='Add New' color='bg-yellow-500 hover:bg-yellow-300'/>
-                    </Link>
+                    <div className="flex space-x-4">
+                        <InputText placeholder="Type Name or Tags"onChange={event => setQuery(event.target.value)}/>
+                    
+                        <select onChange={event=> setExtension(event.target.value)} className="border px-4 py-2 rounded-lg text-gray-900">
+                            <option value="">All formats</option>
+                            <option value="PNG">PNG</option>
+                            <option value="JPEG">JPEG</option>
+                            <option value="GIF">GIF</option>
+                        </select>
+                        <Button label='Search' onClick={searchImages} color='bg-blue-500 hover:bg-color-300'/>
+                        
+                        <Link href="/form">
+                            <Button label='Add New' color='bg-yellow-500 hover:bg-yellow-300'/>
+                        </Link>
 
-                    </div>
+                        </div>
 
-            </section>
+                </section>
 
-            <section className="grid grid-cols-4 gap-8">   
-            {renderImageCards()}
-            </section>
-        </Template>
+                <section className="grid grid-cols-4 gap-8">   
+                {renderImageCards()}
+                </section>
+            </Template>
+        </AuthenticatedPage>
     )
 }
