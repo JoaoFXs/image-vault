@@ -94,7 +94,7 @@ getUserSession(): UserSessionToken | null {
 isSessionValid(): boolean {
     // Retrieve the user session from localStorage
     const userSession: UserSessionToken | null = this.getUserSession();
-
+   
     // If there is no session, it's not valid
     if (!userSession) {
         return false;
