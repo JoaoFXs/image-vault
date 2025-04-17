@@ -13,31 +13,39 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-@Configuration
-@EnableWebSecurity
-//@CrossOrigin("*")
+@Configuration // Marks this class as a configuration class for Spring
+@EnableWebSecurity // Enables Spring Security for the application
+//@CrossOrigin("*") // Allows cross-origin requests from any origin (currently commented out)
 public class SecurityConfig {
 
+    // Defines a bean for password encoding using BCrypt hashing algorithm
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    // Defines the security filter chain to configure HTTP security
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
-                .csrf(AbstractHttpConfigurer::disable)//For when you are doing a web project directly in Java, but we are using React
-                .cors(cors -> cors.configure(http))//
+                // Disables CSRF protection as it may interfere with frontend frameworks like React
+                .csrf(AbstractHttpConfigurer::disable)
+                // Enables CORS support using the defined configuration
+                .cors(cors -> cors.configure(http))
+                // Allows all incoming requests without authentication (for development/testing)
                 .authorizeHttpRequests(auth -> {
                     auth.anyRequest().permitAll();
                 })
+                // Builds and returns the configured SecurityFilterChain
                 .build();
     }
 
-
+    // Defines the CORS configuration source to allow cross-origin requests
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
+        // Applies default CORS settings (allows all origins, methods, headers, etc.)
         CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+        // Maps the configuration to all paths
         UrlBasedCorsConfigurationSource cors = new UrlBasedCorsConfigurationSource();
         cors.registerCorsConfiguration("/**", config);
 
