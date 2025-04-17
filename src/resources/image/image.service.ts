@@ -19,9 +19,13 @@ class ImageService{
     }
 
     async save(dados: FormData) : Promise<string> {
+        const userSession = this.auth.getUserSession();
         const response = await fetch(this.baseURL, {
             method: 'POST',
-            body: dados
+            body: dados,
+            headers: {  
+                "Authorization": `Bearer ${userSession?.accessToken}`,
+            }
         });
         return response.headers.get('location') ?? ''
     }
