@@ -5,6 +5,7 @@ import io.gituhub.jfelixy.imagevaultapi.config.filter.JwtFilter;
 import io.gituhub.jfelixy.imagevaultapi.domain.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -44,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     //Configuration auth requests
                     auth.requestMatchers("/v1/users/**").permitAll();//All of users urls permit requests
+                   auth.requestMatchers(HttpMethod.GET, "/v1/images/**").permitAll();
                     auth.anyRequest().authenticated();//Any other transition requires authentication.
                 })
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
