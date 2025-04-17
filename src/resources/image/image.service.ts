@@ -8,9 +8,13 @@ class ImageService{
 
     async search(query: string = "", extension: string = "") : Promise<Image[]> {
         const userSession = this.auth.getUserSession();
-        
+
         const url = `${this.baseURL}?query=${query}&extension=${extension}` 
-        const response = await fetch(url);
+        const response = await fetch(url,{
+            headers: {  
+                "Authorization": `Bearer ${userSession?.accessToken}`,
+            }
+        });
         return await response.json();
     }
 
