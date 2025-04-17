@@ -34,7 +34,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 // Allows all incoming requests without authentication (for development/testing)
                 .authorizeHttpRequests(auth -> {
-                    auth.anyRequest().permitAll();
+                    //Configuration auth requests
+                    auth.requestMatchers("/v1/users/**").permitAll();//All of users urls permit requests
+                    auth.anyRequest().authenticated();//Any other transition requires authentication.
                 })
                 // Builds and returns the configured SecurityFilterChain
                 .build();
