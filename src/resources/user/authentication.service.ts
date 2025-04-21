@@ -114,6 +114,10 @@ isSessionValid(): boolean {
     // If expiration is not defined, the session is invalid
     return false;
 }
+
+    invalidateSession(): void{
+        localStorage.removeItem(AuthService.AUTH_PARAM);
+    }
 }
 
 // Exporting a custom hook to create a new AuthService instance

@@ -1,6 +1,8 @@
+'use client' // se estiver usando App Router (Next.js 13+)
 import { ToastContainer } from 'react-toastify';
 import Link from 'next/link';
 import { useAuth } from "@/resources";
+import { useRouter } from 'next/navigation';
 
 interface TemplateProps{
     children?: React.ReactNode
@@ -57,9 +59,11 @@ const Header: React.FC = () => {
 
     const auth = useAuth();
     const user = auth.getUserSession();
+    const router = useRouter();
 
     function logout(){
-
+        auth.invalidateSession();
+        router.push("/login");
     }
     return(
         <header className="bg-sky-700 text-white py-3">
@@ -69,19 +73,23 @@ const Header: React.FC = () => {
                     <h1 className="text-3xl font-bold">ImageVault</h1>
 
                 </Link>
-                <div className="flex items-center">
-                        <div className="relative">
-                            <span className='w-64 py-3 px-6 text-md'>
-                                Hello, {user?.name}
-                            </span>
-                            <span>
-                                <a href='#' onClick={logout} className='w-64 py-3 px-6 text-sm'> 
-                                        Exit
-                                </a>
-                            </span>
-                        </div>
+
+                <RenderIf condition={!!user}>
+
+                    <div className="flex items-center">
+                            <div className="relative">
+                                <span className='w-64 py-3 px-6 text-md'>
+                                    Hello, {user?.name}
+                                </span>
+                                <span>
+                                    <a href='#' onClick={logout} className='w-64 py-3 px-6 text-sm'> 
+                                            Exit
+                                    </a>
+                                </span>
+                            </div>
                     </div>
-               
+                
+                </RenderIf>
             </div>
         </header>
     )
