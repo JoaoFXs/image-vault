@@ -1,10 +1,17 @@
-import { FirstComponent, ArrowFunction} from '../components/FirstComponent'
-
+'use client';
+import { useAuth } from "@/resources"
+import  Login  from "./login/page"
+import GalleryPage from "./gallery/page"
 
 export default function Home() {
-  return (
-    <>
 
-    </>
+  const auth = useAuth();
+  const user = auth.getUserSession();
+
+  if(!user){
+    return <Login/>
+  }
+  return (
+    <GalleryPage></GalleryPage>
   )
 }
