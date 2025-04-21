@@ -56,21 +56,31 @@ export const RenderIf: React.FC<RenderIfProps> = ({condition  = true, children})
 const Header: React.FC = () => {
 
     const auth = useAuth();
-    const user = auth.getUserSession();;
+    const user = auth.getUserSession();
+
+    function logout(){
+
+    }
     return(
         <header className="bg-sky-700 text-white py-3">
             
             <div className="container mx-auto flex justify-between items-center px-4">
                 <Link href="/gallery"> 
                     <h1 className="text-3xl font-bold">ImageVault</h1>
-                    <div className="flex items-center">
+
+                </Link>
+                <div className="flex items-center">
                         <div className="relative">
+                            <span className='w-64 py-3 px-6 text-md'>
+                                Hello, {user?.name}
+                            </span>
                             <span>
-                                Olá, {user?.name}
+                                <a href='#' onClick={logout} className='w-64 py-3 px-6 text-sm'> 
+                                        Exit
+                                </a>
                             </span>
                         </div>
                     </div>
-                </Link>
                
             </div>
         </header>
