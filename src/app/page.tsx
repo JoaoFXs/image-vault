@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 import { useAuth } from "@/resources"
 import  Login  from "./login/page"
 import GalleryPage from "./gallery/page"

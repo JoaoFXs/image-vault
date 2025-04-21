@@ -72,22 +72,30 @@ class AuthService {
     // Stores the user session in the browser's localStorage using a json in string format
     // This is used to persist the session across page reloads
     setUserSession(userSessionToken: UserSessionToken) {
-        localStorage.setItem(AuthService.AUTH_PARAM, JSON.stringify(userSessionToken));
+        try{
+            localStorage.setItem(AuthService.AUTH_PARAM, JSON.stringify(userSessionToken));
+
+        }catch(error){}
+        
     }
 
 // Retrieves the user session from the browser's localStorage
 getUserSession(): UserSessionToken | null {
     // Get the session data stored under the AUTH_PARAM key
-    const authString = localStorage.getItem(AuthService.AUTH_PARAM);
+    try{
+        const authString = localStorage.getItem(AuthService.AUTH_PARAM);
 
-    // If there's no session saved, return null
-    if (!authString) {
+        // If there's no session saved, return null
+        if (!authString) {
+            return null;
+        }
+
+        // Parse the session JSON string back into a UserSessionToken object
+        const token: UserSessionToken = JSON.parse(authString);
+        return token;
+    }catch(error){
         return null;
     }
-
-    // Parse the session JSON string back into a UserSessionToken object
-    const token: UserSessionToken = JSON.parse(authString);
-    return token;
 }
 
 // Checks if the current session is still valid based on expiration time
@@ -116,7 +124,11 @@ isSessionValid(): boolean {
 }
 
     invalidateSession(): void{
-        localStorage.removeItem(AuthService.AUTH_PARAM);
+        try{
+            // Remove the session from localStorage
+            localStorage.removeItem(AuthService.AUTH_PARAM);
+        }
+        catch(error){}
     }
 }
 
