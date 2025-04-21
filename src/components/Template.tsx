@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify';
+import Link from 'next/link';
 
 interface TemplateProps{
     children?: React.ReactNode
@@ -54,8 +55,19 @@ export const RenderIf: React.FC<RenderIfProps> = ({condition  = true, children})
 const Header: React.FC = () => {
     return(
         <header className="bg-sky-700 text-white py-3">
+            
             <div className="container mx-auto flex justify-between items-center px-4">
-                <h1 className="text-3xl font-bold">ImageVault</h1>
+                <Link href="/gallery"> 
+                    <h1 className="text-3xl font-bold">ImageVault</h1>
+                    <div className="flex items-center">
+                        <div className="relative">
+                            <span>
+                                Olá, usuario
+                            </span>
+                        </div>
+                    </div>
+                </Link>
+               
             </div>
         </header>
     )
