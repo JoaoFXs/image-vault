@@ -1,5 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import Link from 'next/link';
+import { useAuth } from "@/resources";
 
 interface TemplateProps{
     children?: React.ReactNode
@@ -53,6 +54,9 @@ export const RenderIf: React.FC<RenderIfProps> = ({condition  = true, children})
     return false;
 }
 const Header: React.FC = () => {
+
+    const auth = useAuth();
+    const user = auth.getUserSession();;
     return(
         <header className="bg-sky-700 text-white py-3">
             
@@ -62,7 +66,7 @@ const Header: React.FC = () => {
                     <div className="flex items-center">
                         <div className="relative">
                             <span>
-                                Olá, usuario
+                                Olá, {user?.name}
                             </span>
                         </div>
                     </div>
