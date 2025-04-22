@@ -89,4 +89,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
         return null; // No token found
     }
+
+    @Override
+// This method determines whether the filter should be applied to the incoming request.
+// If the request URI contains "/v1/users", the filter will be skipped (not applied).
+// Returns 'true' to skip filtering, 'false' to apply the filter.
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getRequestURI().contains("/v1/users");
+    }
 }
