@@ -13,6 +13,8 @@ services:
       POSTGRES_DB: imagevault
     volumes:
       - ./data:/var/lib/postgresql/data
+    networks:
+      - imagevaultnetwork
 
   pgadmin:
     image: dpage/pgadmin4
@@ -24,5 +26,25 @@ services:
       - "15432:80"
     depends_on:
       - db
+    networks:
+      - imagevaultnetwork
+
+  sbootapp:
+    build:
+      dockerfile: Dockerfile
+    container_name: imagevaultapi
+    restart: on-failure
+    depends_on:
+      - db
+    ports:
+      - '8080:8080'
+    networks:
+      - imagevaultnetwork
+    environment:
+      - POSTGRES_HOST=db
+networks:
+  imagevaultnetwork:
+    driver: bridge
+
 
 
