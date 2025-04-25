@@ -5,7 +5,7 @@ import jwt from 'jwt-decode';
 // AuthService handles authentication-related operations
 class AuthService {
     // Base URL for user-related backend endpoints
-    baseURL: string =   process.env.NEX_PUBLIC_API_URL + '/v1/users'; 
+    baseURL: string =   process.env.NEXT_PUBLIC_API_URL + '/v1/users'; 
 
     // Static variable used to store the session token in the browser's localStorage
     static AUTH_PARAM: string = "_auth"; 

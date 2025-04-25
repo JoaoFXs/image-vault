@@ -3,7 +3,7 @@ import { useAuth } from '@/resources'
 
 
 class ImageService{
-    baseURL: string = process.env.NEX_PUBLIC_API_URL + '/v1/images';
+    baseURL: string = process.env.NEXT_PUBLIC_API_URL + '/v1/images';
     auth = useAuth();
 
     async search(query: string = "", extension: string = "") : Promise<Image[]> {
