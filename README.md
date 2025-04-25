@@ -10,8 +10,7 @@
 ![License](https://img.shields.io/github/license/JoaoFXs/LICENSE)
 ![Version](https://img.shields.io/badge/Version-0.0.1--SNAPSHOT-informational)
 
-## Table of Contents
-
+## Table of Contentsd
 
 - [About the project](#-about-the-project)
 - [Technologies used](#-technologies-used)
