@@ -32,7 +32,7 @@ services:
   appapi:
     build:
       dockerfile: Dockerfile
-      context: ./imagevaultapi
+      context: ./api
     container_name: imagevaultapi
     restart: on-failure
     depends_on:
@@ -47,7 +47,7 @@ services:
   appreact:
     build:
       dockerfile: Dockerfile
-      context: ./imagevault
+      context: ./app
     container_name: imagevaultapp
     restart: on-failure
     depends_on:
