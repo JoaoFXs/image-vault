@@ -12,18 +12,19 @@
 
 ## Table of Contents
 
-- [Background](#background)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Consume Messages From ActiveMQ](#consume-messages-from-activemq)
-  - [Data Transformation and Validation](#data-transformation-and-validation)
-  - [Error Handling](#error-handling)
-  - [Log Viewing](#log-viewing)
-- [Conclusion](#conclusion)
-  - [Potential Applications](#potential-applications)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-	- [Contributors](#contributors)
+
+- [About the project](#-about-the-project)
+- [Technologies used](#-technologies-used)
+- [How to run the project](#%EF%B8%8F-how-to-run-the-project)
+  - [1. Development Mode (Recommended for Devs)](#-1-development-mode-recommended-for-devs)
+  - [2. Production Mode via Docker Compose](#-2-production-mode-via-docker-compose)
+- [Frontend Screens](#%EF%B8%8F-frontend-screens)
+  - [1. Login and Registration Screen](#1-login-and-registration-screen)
+  - [2. Gallery Screen](#2-gallery-screen)
+  - [3. Image Registration Screen](#3-image-registration-screen)
+- [Maintainers](#-maintainers)
+- [Contributing](#-contributing)
+  - [Contributors](#contributors)
 - [License](#license)
 
 ## 📌 About the project
