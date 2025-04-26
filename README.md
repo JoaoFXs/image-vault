@@ -130,17 +130,19 @@ Login: The user enters their email and password to access the system.
 Registration: If the user does not yet have an account, they can register directly on this screen.
 
 Here's how it works:
+![Login](./assets/login.gif)
 
 ### 2. Gallery Screen
 On the gallery screen, users can search, filter, and view images that are stored in the system. It is possible to search for images by extension type or other relevant filters.
 
 Here's how it works:
+![Gallery](./assets/gallery.gif)
 
 ### 3. Image Registration Screen
 Here, users can register new images in the system, providing details such as the image, title, description, and other related data. The registration form also allows for the selection of files in a simple and practical way.
 
 Here's how it works:
-
+![Gallery](./assets/form.gif)
 
 
 # Maintainers
