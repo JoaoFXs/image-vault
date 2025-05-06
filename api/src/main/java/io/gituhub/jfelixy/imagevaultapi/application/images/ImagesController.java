@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URLConnection;
 import java.util.List;
 
 @RestController
@@ -74,6 +78,7 @@ public class ImagesController {
 
           return ResponseEntity.ok(images);
     }
+
 
     //localhost:8080/v1/images/{imageId}
     private URI buildImageURL(Image image){
